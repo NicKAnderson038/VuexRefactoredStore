@@ -6,4 +6,4 @@
 
 <br>
 
-<img src="https://vuex.vuejs.org/vuex.png" width="400px">
+<img src="https://vuex.vuejs.org/vuex.png" width="600px">
