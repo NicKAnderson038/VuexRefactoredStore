@@ -20,6 +20,9 @@ export default new Vuex.Store({
       try {
         console.log(payload.method);
         commit("loadingStart", payload.spinner);
+        await setTimeout(() => {
+          console("CREATED SLOW CONNECTION");
+        }, 2000);
         // let body = { language: rootState.authStore.currentLocale.locale };
         // if (payload) {
         //   console.log('fail')
