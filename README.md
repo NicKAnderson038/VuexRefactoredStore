@@ -1,2 +1,0 @@
-# VuexRefactoredStore
-Created with CodeSandbox
