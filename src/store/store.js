@@ -19,7 +19,7 @@ export default new Vuex.Store({
     async fetchData({ rootState, commit }, payload) {
       try {
         console.log(payload.method);
-        await commit("loadingStart", payload.spinner);
+        commit("loadingStart", payload.spinner);
         // let body = { language: rootState.authStore.currentLocale.locale };
         // if (payload) {
         //   console.log('fail')
@@ -37,10 +37,10 @@ export default new Vuex.Store({
             with: cloneDeep(response.data)
           });
         }
-        await commit("loadingEnd", payload.spinner);
+        commit("loadingEnd", payload.spinner);
         return;
       } catch (error) {
-        await commit("loadingEnd", payload.spinner);
+        commit("loadingEnd", payload.spinner);
         throw error;
       }
     }
