@@ -1,7 +1,9 @@
 <template>
   <div class="hello">
-    <h4>{{post.userId}}: {{post.title}} {{post.body}}</h4>
+    <button type="button" @click="getData()">FETCH DATA</button>
     <PulseLoader v-if="loading.isPost"/>
+    <h4>{{post.userId}}: {{post.title}} {{post.body}}</h4>
+    <PulseLoader v-if="loading.isUsers"/>
     <table class="users">
       <tr>
         <th>Name</th>
@@ -21,6 +23,26 @@
 import { mapState } from "vuex";
 import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 
+const payload = {
+  property: "users",
+  method: "get",
+  url: "https://jsonplaceholder.typicode.com/users",
+  body: null,
+  spinner: "isPost"
+};
+
+const payload2 = {
+  property: "post",
+  method: "post",
+  url: "https://jsonplaceholder.typicode.com/posts",
+  body: {
+    title: "Operations",
+    body: "Nick",
+    userId: 1
+  },
+  spinner: "isUsers"
+};
+
 export default {
   name: "hello-world",
   components: {
@@ -28,27 +50,20 @@ export default {
   },
   computed: mapState(["users", "post", "loading"]),
   created() {
-    const payload = {
-      property: "users",
-      method: "get",
-      url: "https://jsonplaceholder.typicode.com/users",
-      body: null,
-      spinner: "isPost"
-    };
-    const payload2 = {
-      property: "post",
-      method: "post",
-      url: "https://jsonplaceholder.typicode.com/posts",
-      body: {
-        title: "Operations",
-        body: "Nick",
-        userId: 1
-      },
-      spinner: "isUsers"
-    };
+    // const payload = {
+    //   property: "users",
+    //   method: "get",
+    //   url: "https://jsonplaceholder.typicode.com/users",
+    //   body: null,
+    //   spinner: "isPost"
+    // };
     // this.$store.dispatch('fetchData', payload);
-    const api = data => this.$store.dispatch("fetchData", data);
-    Promise.all([api(payload, api(payload2))]);
+  },
+  methods: {
+    getData() {
+      const api = data => this.$store.dispatch("fetchData", data);
+      Promise.all([api(payload, api(payload2))]);
+    }
   }
 };
 </script>
