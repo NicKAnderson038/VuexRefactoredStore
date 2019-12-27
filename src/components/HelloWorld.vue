@@ -31,12 +31,12 @@ export default {
     const payload2 = {
       property: "post",
       method: "post",
+      url: "https://jsonplaceholder.typicode.com/posts",
       body: {
         title: "Operations",
         body: "Nick",
         userId: 1
-      },
-      url: "https://jsonplaceholder.typicode.com/posts"
+      }
     };
     // this.$store.dispatch('fetchData', payload);
     const api = data => this.$store.dispatch("fetchData", data);
