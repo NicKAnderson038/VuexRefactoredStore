@@ -5,7 +5,10 @@
     <div>
       <PulseLoader v-if="loading.isPost"/>
       <div v-else>
-        <h4>{{post.userId}}: {{post.title}} {{post.body}}</h4>
+        <h4>
+          {{post.userId}}:
+          <em>{{post.title}} {{post.body}}</em>
+        </h4>
       </div>
     </div>
     <div>
