@@ -1,29 +1,53 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import cloneDeep from "lodash/fp/cloneDeep";
 
 Vue.prototype.axios = axios;
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    users: []
+    users: [],
+    post: {},
+    loading: {}
   },
   actions: {
-    loadUsers({ commit }) {
-      axios
-        .get("https://jsonplaceholder.typicode.com/users")
-        .then(result => {
-          commit("SAVE_USERS", result.data);
-        })
-        .catch(error => {
-          throw new Error(`API ${error}`);
-        });
+    async fetchData({ rootState, commit }, payload) {
+      try {
+        console.log(payload.method);
+        // let body = { language: rootState.authStore.currentLocale.locale };
+        // if (payload) {
+        //   console.log('fail')
+        //   body = Object.assign({}, payload.body, body);
+        // }
+        const response = await axios[`${payload.method}`](
+          payload.url,
+          payload.body
+        );
+        console.log(response.data);
+
+        if (payload.property) {
+          commit("mutate", {
+            property: payload.property,
+            with: cloneDeep(response.data)
+          });
+        }
+        return;
+      } catch (error) {
+        throw error;
+      }
     }
   },
   mutations: {
-    SAVE_USERS(state, users) {
-      state.users = users;
+    mutate(state, payload) {
+      state[payload.property] = payload.with;
+    },
+    loadingStart(state, payload) {
+      state.loading[payload] = true;
+    },
+    loadingEnd(state, payload) {
+      state.loading[payload] = false;
     }
   }
 });
