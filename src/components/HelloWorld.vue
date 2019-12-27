@@ -1,8 +1,12 @@
 <template>
   <div class="hello">
     <button type="button" @click="getData()">FETCH DATA</button>
-    <PulseLoader v-if="loading.isPost"/>
-    <h4>{{post.userId}}: {{post.title}} {{post.body}}</h4>
+    <div>
+      <PulseLoader v-if="loading.isPost"/>
+      <div v-else>
+        <h4>{{post.userId}}: {{post.title}} {{post.body}}</h4>
+      </div>
+    </div>
     <PulseLoader v-if="loading.isUsers"/>
     <table class="users">
       <tr>
