@@ -8,19 +8,21 @@
         <h4>{{post.userId}}: {{post.title}} {{post.body}}</h4>
       </div>
     </div>
-    <PulseLoader v-if="loading.isUsers"/>
-    <table class="users">
-      <tr>
-        <th>Name</th>
-        <th>Username</th>
-        <th>Email</th>
-      </tr>
-      <tr v-for="user in users" :key="user.email">
-        <td>{{user.name}}</td>
-        <td>{{user.username}}</td>
-        <td>{{user.email}}</td>
-      </tr>
-    </table>
+    <div>
+      <PulseLoader v-if="loading.isUsers"/>
+      <table class="users" v-else>
+        <tr>
+          <th>Name</th>
+          <th>Username</th>
+          <th>Email</th>
+        </tr>
+        <tr v-for="user in users" :key="user.email">
+          <td>{{user.name}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.email}}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
