@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h4>{{post.userId}}: {{post.title}} {{post.body}}</h4>
+    <PulseLoader v-if="loading.isPost"/>
     <table class="users">
       <tr>
         <th>Name</th>
@@ -18,15 +19,21 @@
 
 <script>
 import { mapState } from "vuex";
+import PulseLoader from "vue-spinner/src/PulseLoader.vue";
+
 export default {
   name: "hello-world",
-  computed: mapState(["users", "post"]),
+  components: {
+    PulseLoader: PulseLoader
+  },
+  computed: mapState(["users", "post", "loading"]),
   created() {
     const payload = {
       property: "users",
       method: "get",
       url: "https://jsonplaceholder.typicode.com/users",
-      body: null
+      body: null,
+      spinner: "isPost"
     };
     const payload2 = {
       property: "post",
@@ -36,7 +43,8 @@ export default {
         title: "Operations",
         body: "Nick",
         userId: 1
-      }
+      },
+      spinner: "isUsers"
     };
     // this.$store.dispatch('fetchData', payload);
     const api = data => this.$store.dispatch("fetchData", data);
