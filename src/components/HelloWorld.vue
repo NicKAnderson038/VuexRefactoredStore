@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <button type="button" @click="postData()">POST USER</button>
     <button type="button" @click="getData()">FETCH DATA</button>
     <div>
       <PulseLoader v-if="loading.isPost"/>
@@ -64,9 +65,15 @@ export default {
     // this.$store.dispatch('fetchData', payload);
   },
   methods: {
-    getData() {
+    getAllData() {
       const api = data => this.$store.dispatch("fetchData", data);
       Promise.all([api(payload, api(payload2))]);
+    },
+    postData() {
+      this.$store.dispatch("fetchData", payload2);
+    },
+    getData() {
+      this.$store.dispatch("fetchData", payload);
     }
   }
 };
