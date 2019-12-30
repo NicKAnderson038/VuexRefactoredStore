@@ -49,11 +49,11 @@ export default new Vuex.Store({
     mutate(state, payload) {
       state[payload.property] = payload.with;
     },
-    loadingStart(state, payload) {
-      state.loading[payload] = true;
+    loadingStart(state, spinner) {
+      state.loading[spinner] = true;
     },
-    loadingEnd(state, payload) {
-      state.loading[payload] = false;
+    loadingEnd(state, spinner) {
+      state.loading[spinner] = false;
     }
   }
 });
